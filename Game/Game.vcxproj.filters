@@ -124,6 +124,9 @@
     <ClCompile Include="Money.cpp">
       <Filter>Header Files\Item</Filter>
     </ClCompile>
+    <ClCompile Include="BrokenBrick.cpp">
+      <Filter>Header Files\Object\Obstacle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h">
@@ -248,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="Money.h">
       <Filter>Header Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenBrick.h">
+      <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
