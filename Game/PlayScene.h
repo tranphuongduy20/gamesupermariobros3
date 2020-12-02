@@ -13,6 +13,7 @@
 //#include "HUD.h"
 #include "Brick.h"
 #include "CBrick.h"
+#include "BrokenBrick.h"
 #include "Koopa.h"
 #include "Goomba.h"
 #include "Mushroom.h"

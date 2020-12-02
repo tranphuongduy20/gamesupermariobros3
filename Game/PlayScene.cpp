@@ -14,6 +14,7 @@
 #define OBJECT_TYPE_COIN		10
 #define OBJECT_TYPE_GOOMBA		11
 #define OBJECT_TYPE_MONEY		12
+#define OBJECT_TYPE_BROKEN_BRICK	13
 //#define OBJECT_TYPE_CENTIPEDE	10
 //#define OBJECT_TYPE_GOLEM		11
 //#define OBJECT_TYPE_GUNNER	12
@@ -752,6 +753,17 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetAnimationSet(ani_set);
 		listObjects.push_back(obj);
 		DebugOut(L"[test] add cbrick !\n");
+		break;
+	}
+	case OBJECT_TYPE_BROKEN_BRICK:
+	{
+		int id_state = atoi(tokens[4].c_str());
+		obj = new BrokenBrick(id_state);
+		obj->SetPosition(x, y);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);
+		listObjects.push_back(obj);
+		//obj->id_broken_state= atoi(tokens[6].c_str());
 		break;
 	}
 	case OBJECT_TYPE_KOOPA:

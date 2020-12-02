@@ -61,6 +61,7 @@ public:
 	bool isdone;
 	int id_goomba;
 	int id_koopa;
+	int id_broken_state;
 	int nx;
 	int gunDam; // gun damage
 

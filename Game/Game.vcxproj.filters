@@ -127,6 +127,9 @@
     <ClCompile Include="BrokenBrick.cpp">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClCompile>
+    <ClCompile Include="EffectBrick.cpp">
+      <Filter>Header Files\Object\Obstacle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h">
@@ -253,6 +256,9 @@
       <Filter>Header Files\Item</Filter>
     </ClInclude>
     <ClInclude Include="BrokenBrick.h">
+      <Filter>Header Files\Object\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectBrick.h">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
