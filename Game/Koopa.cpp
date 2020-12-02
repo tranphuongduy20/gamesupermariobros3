@@ -455,7 +455,7 @@ void Koopa::SetState(int State)
 		break;
 	case KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT:
 		vx = KOOPAS_WALKING_SPEED + 0.01;
-		vy = -0.18;
+		//vy = -0.18;
 		break;
 	case KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT:
 		vx = -KOOPAS_WALKING_SPEED + 0.01;
