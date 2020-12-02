@@ -167,6 +167,8 @@ void PlayScene::Update(DWORD dt)
 	}
 	for (int i = 0; i < listLeaf.size(); i++)
 		listLeaf[i]->Update(dt, &coObjects2);
+	for (int i = 0; i < listCoins.size(); i++)
+		listCoins[i]->Update(dt, &coObjects2);
 	for (int i = 0; i < listitems.size(); i++)
 		listitems[i]->Update(dt, &coObjects);
 	tail->Update(dt, &fullObjects, player->x, player->y);
@@ -244,6 +246,25 @@ void PlayScene::PlayerTouchItem()
 				//player->vy = 0;
 			}
 		}
+		if (listitems[i]->GetType() == EntityType::MONEY)
+		{
+			if (player->IsCollidingObject(listitems[i]))
+			{
+				Money* money = dynamic_cast<Money*>(listitems[i]);
+				if (money->isOnTop == false)
+					listitems[i]->SetState(MONEY_STATE_WALKING);
+			}
+		}
+		if (listitems[i]->GetType() == EntityType::COIN)
+		{
+			if (player->IsCollidingObject(listitems[i]))
+			{
+				Coin* coin = dynamic_cast<Coin*>(listitems[i]);
+				/*if (money->isOnTop == false)
+					listitems[i]->SetState(MONEY_STATE_WALKING);*/
+				coin->SetDone(true);
+			}
+		}
 	}
 	for (UINT i = 0; i < listLeaf.size(); i++)
 	{
@@ -260,18 +281,6 @@ void PlayScene::PlayerTouchItem()
 					player->SetLevel(MARIO_LEVEL_RACCOON);
 					leaf->isDeath = true;
 				}
-			}
-		}
-	}
-	for (UINT i = 0; i < listitems.size(); i++)
-	{
-		if (listitems[i]->GetType() == EntityType::MONEY)
-		{
-			if (player->IsCollidingObject(listitems[i]))
-			{
-				Money* money = dynamic_cast<Money*>(listitems[i]);
-				if (money->isOnTop == false)
-					listitems[i]->SetState(MONEY_STATE_WALKING);
 			}
 		}
 	}
@@ -747,7 +756,7 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_KOOPA:
 	{
-		obj = new Koopa(player, 2);
+		obj = new Koopa(player, 1);
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
@@ -839,7 +848,7 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
 		obj->SetAnimationSet(ani_set);
-		listObjects.push_back(obj);
+		listitems.push_back(obj);
 		DebugOut(L"[test] add coin !\n");
 		break;
 	}
@@ -1036,6 +1045,8 @@ void PlayScene::Render()
 		listLeaf[i]->Render();
 	for (int i = 0; i < listEnemies.size(); i++)
 		listEnemies[i]->Render();
+	for (int i = 0; i < listCoins.size(); i++)
+		listCoins[i]->Render();
 	player->Render();
 	//supBullet->Render();
 	for (int i = 0; i < listBullets.size(); i++)

@@ -6,7 +6,7 @@
 
 Koopa::Koopa(Player* mario, int id_Koopa)
 {
-	//tag = EntityType::KOOPA;
+	tag = EntityType::KOOPA;
 	Mario = mario;
 	id_koopa = id_Koopa;
 	if (id_koopa == KOOPA_RED)
@@ -43,7 +43,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x;
 			bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
 		}
-		else if (state == KOOPA_RED_STATE_WALKING_RIGHT || state == KOOPA_RED_STATE_WALKING_LEFT)
+		else if (state == KOOPA_RED_STATE_WALKING_RIGHT /*|| state == KOOPA_RED_STATE_WALKING_LEFT*/)
 		{
 			top = y;
 			bottom = top + KOOPAS_BBOX_HEIGHT;
@@ -71,7 +71,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x;
 			bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
 		}
-		else if (state == KOOPA_GREEN_STATE_WALKING_RIGHT || state == KOOPA_GREEN_STATE_WALKING_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT)
+		else if (state == KOOPA_GREEN_STATE_WALKING_RIGHT /*|| state == KOOPA_GREEN_STATE_WALKING_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT*/ || state == KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT)
 		{
 			top = y;
 			bottom = top + KOOPAS_BBOX_HEIGHT;
@@ -87,7 +87,6 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
-	DebugOut(L"vx %f ", vx);
 	if (GetState() == KOOPA_RED_STATE_HOLDING ||
 		GetState() == KOOPA_RED_STATE_HOLDING_UP ||
 		GetState() == KOOPA_GREEN_STATE_HOLDING ||
@@ -276,10 +275,11 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						vx = -vx;
 						if (GetState() != KOOPA_RED_STATE_DIE_AND_MOVE && GetState() != KOOPA_RED_STATE_DIE_AND_MOVE_UP && GetState() != KOOPA_RED_STATE_DIE_UP)
 						{
-							if (vx > 0)
+							/*if (vx > 0)
 								SetState(KOOPA_RED_STATE_WALKING_RIGHT);
 							else
-								SetState(KOOPA_RED_STATE_WALKING_LEFT);
+								SetState(KOOPA_RED_STATE_WALKING_LEFT);*/
+							SetState(KOOPA_RED_STATE_WALKING_RIGHT);
 
 						}
 					}
@@ -313,10 +313,11 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 							vx = -vx;
 							if (GetState() != KOOPA_GREEN_STATE_DIE_AND_MOVE && GetState() != KOOPA_GREEN_STATE_DIE_AND_MOVE_UP && GetState() != KOOPA_GREEN_STATE_DIE_UP)
 							{
-								if (vx > 0)
+								/*if (vx > 0)
 									SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
 								else
-									SetState(KOOPA_GREEN_STATE_WALKING_LEFT);
+									SetState(KOOPA_GREEN_STATE_WALKING_LEFT);*/
+								SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
 							}
 						}
 					}
@@ -391,10 +392,10 @@ void Koopa::SetState(int State)
 		vx = KOOPAS_WALKING_SPEED;
 		last_state = KOOPA_RED_STATE_WALKING_RIGHT;
 		break;
-	case KOOPA_RED_STATE_WALKING_LEFT:
+	/*case KOOPA_RED_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
 		last_state = KOOPA_RED_STATE_WALKING_LEFT;
-		break;
+		break;*/
 	case KOOPA_RED_STATE_DIE_AND_MOVE:
 		vx = 0.1 * nx;
 		last_state = KOOPA_RED_STATE_DIE_AND_MOVE;
@@ -419,10 +420,10 @@ void Koopa::SetState(int State)
 		vx = KOOPAS_WALKING_SPEED;
 		last_state = KOOPA_GREEN_STATE_WALKING_RIGHT;
 		break;
-	case KOOPA_GREEN_STATE_WALKING_LEFT:
+	/*case KOOPA_GREEN_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
 		last_state = KOOPA_GREEN_STATE_WALKING_LEFT;
-		break;
+		break;*/
 	case KOOPA_GREEN_STATE_DIE:
 		vx = 0;
 		vy = 0;
@@ -455,12 +456,12 @@ void Koopa::SetState(int State)
 		break;
 	case KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT:
 		vx = KOOPAS_WALKING_SPEED + 0.01;
-		//vy = -0.18;
-		break;
-	case KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT:
-		vx = -KOOPAS_WALKING_SPEED + 0.01;
 		vy = -0.18;
 		break;
+	/*case KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT:
+		vx = -KOOPAS_WALKING_SPEED + 0.01;
+		vy = -0.18;
+		break;*/
 	case KOOPA_GREEN_STATE_HOLDING:
 		last_state = KOOPA_GREEN_STATE_HOLDING;
 		break;

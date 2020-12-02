@@ -13,6 +13,7 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	Coin(float frameW, float frameH);
+	void SetDone(bool isDone);
 	~Coin();
 };
 
