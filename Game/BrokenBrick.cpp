@@ -7,9 +7,7 @@ BrokenBrick::BrokenBrick(int id_state)
 		SetState(STATE_BRICK_NORMAL);
 	/*else if (this->id_brick_items == 2)
 		SetState(STATE_COIN_NO_ROTATE);*/
-	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(12));
-	//DebugOut(L"Gia tri cua state %d \n", id_broken_state);
-
+	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(20));
 }
 
 void BrokenBrick::Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects)
@@ -76,7 +74,6 @@ void BrokenBrick::SetState(int State)
 	case STATE_COIN_ROTATE:
 		break;
 	case STATE_DESTROYED:
-		//isDestroyed = true;
 		EffectBrick* topLeftPiece = new EffectBrick({ x - 1, y - 2 }, -1, 2);
 		EffectBrick* topRightPiece = new EffectBrick({ x + 9, y - 2 }, 1, 2);
 		EffectBrick* bottomLeftPiece = new EffectBrick({ x - 1, y + 8 }, -1);

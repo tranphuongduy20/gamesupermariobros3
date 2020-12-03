@@ -4,7 +4,7 @@
 #define OBJECT_TYPE_MARIO		0
 #define OBJECT_TYPE_BRICK		1
 #define OBJECT_TYPE_GATE		2
-#define OBJECT_TYPE_KOOPA		3
+#define OBJECT_TYPE_KOOPA_RED		3
 #define OBJECT_TYPE_CBRICK		4
 #define OBJECT_TYPE_MUSHROOM	5
 #define OBJECT_TYPE_LEAF		6
@@ -15,6 +15,7 @@
 #define OBJECT_TYPE_GOOMBA		11
 #define OBJECT_TYPE_MONEY		12
 #define OBJECT_TYPE_BROKEN_BRICK	13
+#define OBJECT_TYPE_KOOPA_GREEN		14
 //#define OBJECT_TYPE_CENTIPEDE	10
 //#define OBJECT_TYPE_GOLEM		11
 //#define OBJECT_TYPE_GUNNER	12
@@ -521,7 +522,6 @@ void PlayScenceKeyHandler::KeyState(BYTE* states)
 	if (Game::GetInstance()->IsKeyDown(DIK_RIGHT) && !player->isWalkingComplete)
 	{
 		player->SetState(MARIO_STATE_WALKING_RIGHT);
-		//player->isKick = false;
 		if (Game::GetInstance()->IsKeyDown(DIK_A))
 		{
 			player->isRun = true;
@@ -530,7 +530,6 @@ void PlayScenceKeyHandler::KeyState(BYTE* states)
 	else if (Game::GetInstance()->IsKeyDown(DIK_LEFT) && !player->isWalkingComplete)
 	{
 		player->SetState(MARIO_STATE_WALKING_LEFT);
-		//player->isKick = false;
 		if (Game::GetInstance()->IsKeyDown(DIK_A))
 		{
 			player->isRun = true;
@@ -760,15 +759,26 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 		int id_state = atoi(tokens[4].c_str());
 		obj = new BrokenBrick(id_state);
 		obj->SetPosition(x, y);
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		obj->SetAnimationSet(ani_set);
+		/*LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		obj->SetAnimationSet(ani_set);*/
 		listObjects.push_back(obj);
 		//obj->id_broken_state= atoi(tokens[6].c_str());
 		break;
 	}
-	case OBJECT_TYPE_KOOPA:
+	case OBJECT_TYPE_KOOPA_RED:
 	{
 		obj = new Koopa(player, 1);
+		obj->SetPosition(x, y);
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+
+		obj->SetAnimationSet(ani_set);
+		listEnemies.push_back(obj);
+		DebugOut(L"[test] add koopa !\n");
+		break;
+	}
+	case OBJECT_TYPE_KOOPA_GREEN:
+	{
+		obj = new Koopa(player, 2);
 		obj->SetPosition(x, y);
 		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 

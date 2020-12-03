@@ -23,6 +23,7 @@ void EffectBrick::Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects)
 
 void EffectBrick::Render()
 {
+	//RenderBoundingBox();
 	animationSet->at(0)->Render(nx, x, y);
 }
 
