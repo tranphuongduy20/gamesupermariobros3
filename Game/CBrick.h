@@ -8,9 +8,8 @@
 
 class CBrick : public Entity
 {
-	float frameW, frameH;
-
 public:
+	float frameW, frameH;
 	float oldY;
 	bool isColliCbrick;
 	virtual void SetState(int state);

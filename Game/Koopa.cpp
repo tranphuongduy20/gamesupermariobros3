@@ -1,6 +1,6 @@
 #include "Koopa.h"
 //#include "MonneyEffect.h"
-//#include "BrokenBrick.h"
+#include "BrokenBrick.h"
 #include "Brick.h"
 #include "CBrick.h"
 
@@ -35,7 +35,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		}
 		else if (state == KOOPA_RED_STATE_DIE_AND_MOVE || state == KOOPA_RED_STATE_DIE_AND_MOVE_UP)
 		{
-			bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
+			bottom = top + KOOP	AS_BBOX_HEIGHT_DIE;
 		}
 		else*/
 		if (state == KOOPA_RED_STATE_REVIVE || state == KOOPA_RED_STATE_REVIVE_UP)
@@ -43,7 +43,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x;
 			bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
 		}
-		else if (state == KOOPA_RED_STATE_WALKING_RIGHT /*|| state == KOOPA_RED_STATE_WALKING_LEFT*/)
+		else if (state == KOOPA_RED_STATE_WALKING_RIGHT || state == KOOPA_RED_STATE_WALKING_LEFT)
 		{
 			top = y;
 			bottom = top + KOOPAS_BBOX_HEIGHT;
@@ -71,7 +71,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x;
 			bottom = top + KOOPAS_BBOX_HEIGHT_DIE;
 		}
-		else if (state == KOOPA_GREEN_STATE_WALKING_RIGHT /*|| state == KOOPA_GREEN_STATE_WALKING_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT*/ || state == KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT)
+		else if (state == KOOPA_GREEN_STATE_WALKING_RIGHT || state == KOOPA_GREEN_STATE_WALKING_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_LEFT || state == KOOPA_GREEN_STATE_HAS_WING_FLY_RIGHT)
 		{
 			top = y;
 			bottom = top + KOOPAS_BBOX_HEIGHT;
@@ -87,6 +87,7 @@ void Koopa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
+
 	if (GetState() == KOOPA_RED_STATE_HOLDING ||
 		GetState() == KOOPA_RED_STATE_HOLDING_UP ||
 		GetState() == KOOPA_GREEN_STATE_HOLDING ||
@@ -102,9 +103,9 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		else if (Mario->level == MARIO_LEVEL_SMALL)
 		{
 			if (Mario->nx > 0)
-				SetPosition(Mario->x + 19, Mario->y + 2);
+				SetPosition(Mario->x + 10, Mario->y - 15);
 			else
-				SetPosition(Mario->x - 1, Mario->y + 2);
+				SetPosition(Mario->x - 13, Mario->y - 15);
 		}
 		else
 		{
@@ -219,7 +220,7 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		// block every object first!
 
 		//x += min_tx * dx + nx * 0.5f;
-		y += min_ty * dy + ny * 0.5f;
+		y += min_ty * dy + ny * 0.1f;
 
 		if (ny != 0)
 			vy = 0;
@@ -250,24 +251,24 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 							SetState(KOOPA_RED_STATE_WALKING_RIGHT);
 
 						}
-						/*else if (x >= cbrick->x + 16 * cbrick->frameW - KOOPAS_BBOX_WIDTH)
+						else if (x >= cbrick->x + 16 * cbrick->frameW - KOOPAS_BBOX_WIDTH)
 						{
 							x = cbrick->x + 16 * cbrick->frameW - KOOPAS_BBOX_WIDTH;
 							SetState(KOOPA_RED_STATE_WALKING_LEFT);
-						}*/
+						}
 					}
 
 				}
-				/*else if (dynamic_cast<CBrokenBrick*>(e->obj))
+				else if (dynamic_cast<BrokenBrick*>(e->obj))
 				{
 					if (GetState() == KOOPA_RED_STATE_DIE_AND_MOVE || GetState() == KOOPA_RED_STATE_DIE_AND_MOVE_UP)
 					{
-						CBrokenBrick* brokenbrick = dynamic_cast<CBrokenBrick*>(e->obj);
+						BrokenBrick* brokenbrick = dynamic_cast<BrokenBrick*>(e->obj);
 						brokenbrick->isDestroyed = true;
 						brokenbrick->SetState(STATE_DESTROYED);
 						vx = -vx;
 					}
-				}*/
+				}
 				else
 				{
 					if (e->nx != 0)
@@ -275,11 +276,11 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						vx = -vx;
 						if (GetState() != KOOPA_RED_STATE_DIE_AND_MOVE && GetState() != KOOPA_RED_STATE_DIE_AND_MOVE_UP && GetState() != KOOPA_RED_STATE_DIE_UP)
 						{
-							/*if (vx > 0)
+							if (vx > 0)
 								SetState(KOOPA_RED_STATE_WALKING_RIGHT);
 							else
-								SetState(KOOPA_RED_STATE_WALKING_LEFT);*/
-							SetState(KOOPA_RED_STATE_WALKING_RIGHT);
+								SetState(KOOPA_RED_STATE_WALKING_LEFT);
+							//SetState(KOOPA_RED_STATE_WALKING_RIGHT);
 
 						}
 					}
@@ -313,11 +314,11 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 							vx = -vx;
 							if (GetState() != KOOPA_GREEN_STATE_DIE_AND_MOVE && GetState() != KOOPA_GREEN_STATE_DIE_AND_MOVE_UP && GetState() != KOOPA_GREEN_STATE_DIE_UP)
 							{
-								/*if (vx > 0)
+								if (vx > 0)
 									SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
 								else
-									SetState(KOOPA_GREEN_STATE_WALKING_LEFT);*/
-								SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
+									SetState(KOOPA_GREEN_STATE_WALKING_LEFT);
+								//SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
 							}
 						}
 					}
@@ -356,7 +357,8 @@ void Koopa::CheckCollisionWithBrick(vector<LPGAMEENTITY>* coObjects)
 
 void Koopa::Render()
 {
-	animationSet->at(state)->Render(nx, x, y);
+	DebugOut(L"nx %d ani %d \n", this->nx, state);
+	animationSet->at(state)->Render(-this->nx, x, y);
 	for (int i = 0; i < listEffect.size(); i++)
 	{
 		listEffect[i]->Render();
@@ -390,14 +392,17 @@ void Koopa::SetState(int State)
 		/*if (last_state == KOOPA_RED_STATE_REVIVE || last_state == KOOPA_RED_STATE_REVIVE_UP)
 			y -= KOOPAS_BBOX_HEIGHT - KOOPAS_BBOX_HEIGHT_DIE;*/
 		vx = KOOPAS_WALKING_SPEED;
+		nx = 1;
 		last_state = KOOPA_RED_STATE_WALKING_RIGHT;
 		break;
-	/*case KOOPA_RED_STATE_WALKING_LEFT:
+	case KOOPA_RED_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
+		nx = -1;
 		last_state = KOOPA_RED_STATE_WALKING_LEFT;
-		break;*/
+		break;
 	case KOOPA_RED_STATE_DIE_AND_MOVE:
-		vx = 0.1 * nx;
+		//vx = nx * 0.1;
+		vx = Mario->nx* 0.2;
 		last_state = KOOPA_RED_STATE_DIE_AND_MOVE;
 		break;
 	case KOOPA_RED_STATE_REVIVE:

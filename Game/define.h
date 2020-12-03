@@ -128,6 +128,7 @@ enum EntityType
 	KOOPA = 32,
 	MONEY = 33,
 	CBRICK = 34,
+	BROKENBRICK = 35,
 
 
 	//Item Zone 40-70

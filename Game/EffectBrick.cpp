@@ -5,7 +5,7 @@ EffectBrick::EffectBrick(D3DXVECTOR2 position, int nx, int deflectFactorY)
 	y = position.y;
 	vx = 0.07f * nx;
 	vy = -0.16f * deflectFactorY;
-	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(11));
+	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(19));
 }
 
 void EffectBrick::Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects)

@@ -198,7 +198,7 @@ void PlayScene::PlayerTailAttackEnemy()
 		else if (listEnemies[i]->GetType() == EntityType::KOOPA)
 		{
 			if (tail->IsCollidingObject(listEnemies[i]))
-				listEnemies[i]->SetState(KOOPA_GREEN_STATE_DIE);
+				listEnemies[i]->SetState(KOOPA_RED_STATE_DIE_UP);
 		}
 	}
 }
@@ -496,7 +496,7 @@ void PlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		{
 			player->holdthing->nx = -player->nx;
 			player->isKick = true;
-			player->holdthing->SetState(KOOPA_GREEN_STATE_DIE_AND_MOVE);
+			player->holdthing->SetState(KOOPA_RED_STATE_DIE_AND_MOVE);
 		}
 		player->isRun = false;
 		break;

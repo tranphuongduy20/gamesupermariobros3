@@ -1,7 +1,7 @@
 #include "BrokenBrick.h"
 BrokenBrick::BrokenBrick(int id_state)
 {
-
+	tag = EntityType::BROKENBRICK;
 	id_broken_state = id_state;
 	if (this->id_broken_state == 1)
 		SetState(STATE_BRICK_NORMAL);

@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "Brick.h"
 #include "CBrick.h"
+#include "BrokenBrick.h"
 #include "Goomba.h"
 #include "Koopa.h"
 #include "Mushroom.h"
@@ -127,6 +128,29 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 			if (e->obj->GetType() == EntityType::BRICK)
 			{
 				Brick* brick = dynamic_cast<Brick*>(e->obj);
+				/*x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.001f;*/
+				if (e->ny != 0)
+				{
+					if (e->ny == -1)
+					{
+						isGround = true;
+						isJumping = false;
+						isFly = false;
+						isCheckCanFly = true;
+						vy = 0;
+					}
+					else
+						y += dy;
+				}
+				//if (e->ny < 0)
+				//{
+				//	isJumping = false;
+				//}
+			}
+			else if (e->obj->GetType() == EntityType::BROKENBRICK)
+			{
+				BrokenBrick* brokenbrick = dynamic_cast<BrokenBrick*>(e->obj);
 				/*x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.001f;*/
 				if (e->ny != 0)
@@ -417,9 +441,9 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						}
 						else if (koopa->GetState() == KOOPA_RED_STATE_DIE)
 						{
-
 							koopa->SetState(KOOPA_RED_STATE_DIE_AND_MOVE);
 							//koopa->makeEffect = true;
+							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							if (lastnx > 0)
 							{
 								koopa->nx = 1;
@@ -432,6 +456,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						else if (koopa->GetState() == KOOPA_RED_STATE_DIE_UP)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE_AND_MOVE_UP);
+							
 							//koopa->makeEffect = true;
 							if (lastnx > 0)
 							{
@@ -444,12 +469,14 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 					}
 					else if (Game::GetInstance()->IsKeyDown(DIK_A) && e->nx != 0 && (koopa->GetState() == KOOPA_RED_STATE_DIE || koopa->GetState() == KOOPA_RED_STATE_DIE_UP))// xac dinh dang nhan giu phim A va cham vs koopas 
 					{
+						isKick = true;
+						e->obj->nx = nx;
 						if (koopa->last_state == KOOPA_RED_STATE_DIE)
 							koopa->SetState(KOOPA_RED_STATE_HOLDING);
 						else if (koopa->last_state == KOOPA_RED_STATE_DIE_UP)
 							koopa->SetState(KOOPA_RED_STATE_HOLDING_UP);
 						//isHolding = true; //giu koopas van tang toc dc
-						holdthing = nullptr;
+						holdthing = e->obj;
 						/*if (nx > 0)
 						{
 							if (level == MARIO_LEVEL_SMALL)
@@ -722,7 +749,8 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 	if (holdthing && Game::GetInstance()->IsKeyDown(DIK_A))
 	{
 		if (level == MARIO_LEVEL_SMALL)
-			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 15);
+			//holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 15);
+			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 5);
 		//else if (level == MARIO_LEVEL_RACCOON)
 		//	holdthing->SetPosition(nx == 1 ? k + nx * 17 : k + nx * 13, /*holdthing->Gety*/ l - 5);
 		else
@@ -1019,7 +1047,7 @@ void Player::SetState(int state)
 		isRun = false;
 		isPressJump = false;
 		isCrouch = false;
-		if (vx > 0) {
+		/*if (vx > 0) {
 			vx -= MARIO_WALKING_ACC * dt;
 			if (vx < 0)
 				vx = 0;
@@ -1028,8 +1056,8 @@ void Player::SetState(int state)
 			vx += MARIO_WALKING_ACC * dt;
 			if (vx > 0)
 				vx = 0;
-		}
-		//vx = 0;
+		}*/
+		vx = 0;
 		break;
 	case MARIO_STATE_JUMP:
 		isPressJump = true;
