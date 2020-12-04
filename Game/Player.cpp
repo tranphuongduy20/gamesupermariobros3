@@ -327,7 +327,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 				{
 					if (e->ny < 0)
 					{
-						if (koopa->GetState() == KOOPA_RED_STATE_WALKING_RIGHT /*|| koopas->GetState() == KOOPA_RED_STATE_WALKING_LEFT*/)
+						if (koopa->GetState() == KOOPA_RED_STATE_WALKING_RIGHT || koopa->GetState() == KOOPA_RED_STATE_WALKING_LEFT)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE);
 							//koopa->makeEffect = true;

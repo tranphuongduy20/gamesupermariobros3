@@ -42,17 +42,17 @@ void Goomba::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		{
 			if (hasWing)
 			{
-				left = x + 4;
+				left = x + 3;
 				top = y + 8;
 				right = left + GOOMBA_BBOX_WIDTH;
 				bottom = top + GOOMBA_BBOX_HEIGHT;
 			}
 			else
 			{
-				left = x + 4;
+				left = x;
 				top = y + 8;
-				right = left + 16;
-				bottom = top + 16;
+				right = left + GOOMBA_BBOX_WIDTH;
+				bottom = top + GOOMBA_BBOX_HEIGHT;
 			}
 
 		}
@@ -288,13 +288,13 @@ void Goomba::SetState(int state)
 		SetSpeed();
 		break;
 	case GOOMBA_RED_STATE_HAS_WING_FLY_LOW:
-		vy = -0.05;
+		//vy = -0.05;
 		SetSpeed();
 		isGrounded = false;
 		break;
 	case GOOMBA_RED_STATE_HAS_WING_FLY_HIGH:
 		isGrounded = false;
-		vy = -0.15;
+		//vy = -0.15;
 		SetSpeed();
 		break;
 	}

@@ -198,8 +198,18 @@ void PlayScene::PlayerTailAttackEnemy()
 		}
 		else if (listEnemies[i]->GetType() == EntityType::KOOPA)
 		{
-			if (tail->IsCollidingObject(listEnemies[i]))
-				listEnemies[i]->SetState(KOOPA_RED_STATE_DIE_UP);
+			auto koopa = dynamic_cast<Koopa*>(listEnemies[i]);
+			if (koopa->id_koopa == KOOPA_RED) {
+				if (tail->IsCollidingObject(listEnemies[i]))
+					listEnemies[i]->SetState(KOOPA_RED_STATE_DIE_UP);
+			}
+			else if (koopa->id_koopa == KOOPA_GREEN)
+			{
+				if (tail->IsCollidingObject(listEnemies[i]))
+					listEnemies[i]->SetState(KOOPA_GREEN_STATE_DIE_UP);
+				//koopa->hasWing = false;
+			}
+			koopa->hitByTail = true;
 		}
 	}
 }
@@ -496,8 +506,19 @@ void PlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		if (player->holdthing)
 		{
 			player->holdthing->nx = -player->nx;
-			player->isKick = true;
-			player->holdthing->SetState(KOOPA_RED_STATE_DIE_AND_MOVE);
+			Koopa* koopa = dynamic_cast<Koopa*>(player->holdthing);
+			if (koopa != nullptr) {
+				player->isKick = true;
+				if (koopa->id_koopa == KOOPA_RED)
+				{
+					player->holdthing->SetState(KOOPA_RED_STATE_DIE_AND_MOVE);
+				}
+				else if (koopa->id_koopa == KOOPA_GREEN)
+				{
+					player->holdthing->SetState(KOOPA_GREEN_STATE_DIE_AND_MOVE);
+				}
+			}
+			
 		}
 		player->isRun = false;
 		break;

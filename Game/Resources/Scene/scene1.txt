@@ -185,6 +185,12 @@
 50	37	120	8	8	47
 51	48	120	8	8	47
 
+#item P
+70	178	144	16	16	20
+71	156	144	16	16	20
+# pressed already
+72	200	144	16	16	20
+
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
@@ -334,6 +340,11 @@
 #=====Effect Brick====
 605	50	30	51	30
 
+#=====item P=======
+406	70	450	71	150
+# pressed already
+407	72	100
+
 # id	ani1	ani2	ani3
 #
 [ANIMATION_SETS]
@@ -375,6 +386,9 @@
 #Effect Brick
 19	605
 
+#item P
+21	406	407
+
 
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
@@ -382,11 +396,11 @@
 
 # KOOPAS
 #3	50	380	3	16	27
-14	70	380	3	16	27
+#14	70	380	3	16	27
 
 # GOOMBA
 #11	160	395	2	16	16	1
-#11	270	390	2	16	16	2
+11	270	390	2	16	16	2
 
 # MUSHROOM
 #5	195	352	11	16	16

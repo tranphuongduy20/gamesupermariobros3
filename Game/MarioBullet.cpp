@@ -101,44 +101,27 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEENTITY>* colliable_objects)
 				else if (e->obj->GetType() == EntityType::GOOMBA)
 				{
 					Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
-					if (e->nx != 0 || e->ny != 0)
+					if (goomba->id_goomba == GOOMBA_NORMAL)
 					{
-						isCollision = 1;
-						vx = 0;
-						vy = 0;
-						//vy = -BULLET_DEFLECT_SPEED_Y;
-						if (goomba->GetState() != GOOMBA_STATE_DIE_FLY)
+						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
 							goomba->SetState(GOOMBA_STATE_DIE_FLY);
 						}
 					}
-
+					else if (goomba->id_goomba == GOOMBA_RED)
+					{
+							goomba->SetState(GOOMBA_RED_STATE_NO_WING_DIE_FLY);
+							goomba->hasWing = false;
+					}
 				}
 				else if (e->obj->GetType() == EntityType::KOOPA)
 				{
 					Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
-					/*if (e->nx != 0)
-					{
-						isCollision = 1;
-						vx = 0;
-						vy = 0;
-						vy = -BULLET_DEFLECT_SPEED_Y;
-						if (koopa->GetState() != KOOPA_STATE_DIE_FLY)
-						{
-							koopa->SetState(KOOPA_STATE_DIE_FLY);
-						}
-					}
-					if (e->ny != 0)
-					{
-						isCollision = 1;
-						vx = 0;
-						vy = 0;
-						vy = -BULLET_DEFLECT_SPEED_Y;
-						if (koopa->GetState() != KOOPA_STATE_DIE_FLY)
-						{
-							koopa->SetState(KOOPA_STATE_DIE_FLY);
-						}
-					}*/
+					if (koopa->id_koopa == KOOPA_RED)
+						koopa->SetState(KOOPA_RED_STATE_DIE_UP);
+					else if (koopa->id_koopa == KOOPA_GREEN)
+						koopa->SetState(KOOPA_GREEN_STATE_DIE_UP);
+					koopa->hitByWeapon = true;
 				}
 			}
 		}
