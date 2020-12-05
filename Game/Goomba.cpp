@@ -1,6 +1,7 @@
 #include "Goomba.h"
 #include "Brick.h"
 #include "CBrick.h"
+#include "MonneyEffect.h"
 
 Goomba::Goomba(Player* mario)
 {
@@ -115,14 +116,14 @@ void Goomba::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		if (GetState() != GOOMBA_STATE_DIE && GetState() != GOOMBA_STATE_DIE_FLY)
 			SetState(GOOMBA_STATE_WALKING);
 	}
-	/*if (makeEffect)
+	if (makeEffect)
 	{
-		CMonneyEffect* monneyeffect = new CMonneyEffect();
+		MonneyEffect* monneyeffect = new MonneyEffect();
 		monneyeffect->SetPosition(x, y);
 		monneyeffect->SetState(MAKE_100);
 		makeEffect = false;
 		listEffect.push_back(monneyeffect);
-	}*/
+	}
 
 	Entity::Update(dt);
 	if (GetState() != GOOMBA_STATE_DIE && GetState() != GOOMBA_RED_STATE_NO_WING_DIE)
@@ -288,13 +289,13 @@ void Goomba::SetState(int state)
 		SetSpeed();
 		break;
 	case GOOMBA_RED_STATE_HAS_WING_FLY_LOW:
-		//vy = -0.05;
+		vy = -0.05;
 		SetSpeed();
 		isGrounded = false;
 		break;
 	case GOOMBA_RED_STATE_HAS_WING_FLY_HIGH:
 		isGrounded = false;
-		//vy = -0.15;
+		vy = -0.15;
 		SetSpeed();
 		break;
 	}

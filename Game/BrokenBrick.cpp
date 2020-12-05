@@ -10,7 +10,7 @@ BrokenBrick::BrokenBrick(int id_state)
 	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(20));
 }
 
-void BrokenBrick::Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects)
+void BrokenBrick::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
 	//DebugOut(L"Gia tri cua state %d \n", id_broken_state);
 	/*if (isDestroyed)

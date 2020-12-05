@@ -207,7 +207,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
 							goomba->SetState(GOOMBA_STATE_DIE);
-							//goomba->makeEffect = true;
+							goomba->makeEffect = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
@@ -281,40 +281,6 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 
 					}
 				}
-
-				/*if (e->ny < 0)
-				{
-					if (goomba->GetState() != GOOMBA_STATE_DIE)
-					{
-						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -MARIO_JUMP_DEFLECT_SPEED;
-						isJumping = true;
-					}
-				}
-				else if (e->nx != 0)
-				{
-					if (untouchable == 0)
-					{
-						if (goomba->GetState() != GOOMBA_STATE_DIE || goomba->GetState() != GOOMBA_STATE_DIE_FLY)
-						{
-							if (level > MARIO_LEVEL_BIG)
-							{
-								level = MARIO_LEVEL_BIG;
-								StartUntouchable();
-							}
-							else if (level == MARIO_LEVEL_BIG)
-							{
-								level = MARIO_LEVEL_SMALL;
-								StartUntouchable();
-							}
-							else
-							{
-								SetState(MARIO_STATE_DIE);
-								return;
-							}
-						}
-					}
-				}*/
 			}
 			else if (e->obj->GetType() == EntityType::KOOPA)
 			{

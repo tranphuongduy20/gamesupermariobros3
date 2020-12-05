@@ -8,7 +8,7 @@ EffectBrick::EffectBrick(D3DXVECTOR2 position, int nx, int deflectFactorY)
 	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(19));
 }
 
-void EffectBrick::Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects)
+void EffectBrick::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
 	Entity::Update(dt);
 

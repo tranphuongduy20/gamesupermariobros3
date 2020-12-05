@@ -23,7 +23,7 @@ public:
 	CBrokenBrickPiece* bottomRightPiece;*/
 
 	BrokenBrick(int id_state);
-	virtual void Update(ULONGLONG dt, vector<LPGAMEENTITY>* coObjects);
+	virtual void Update(DWORD dt, vector<LPGAMEENTITY>* coObjects);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual void SetState(int state);

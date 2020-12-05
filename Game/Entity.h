@@ -58,6 +58,8 @@ public:
 	int health;
 
 	bool holdthing;
+	bool makeEffect;
+
 	bool isdone;
 	int id_goomba;
 	int id_koopa;

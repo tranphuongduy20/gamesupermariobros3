@@ -1,5 +1,6 @@
 #include "PlayScene.h"
 #include "Textures.h"
+#include "MonneyEffect.h"
 
 #define OBJECT_TYPE_MARIO		0
 #define OBJECT_TYPE_BRICK		1
@@ -16,11 +17,6 @@
 #define OBJECT_TYPE_MONEY		12
 #define OBJECT_TYPE_BROKEN_BRICK	13
 #define OBJECT_TYPE_KOOPA_GREEN		14
-//#define OBJECT_TYPE_CENTIPEDE	10
-//#define OBJECT_TYPE_GOLEM		11
-//#define OBJECT_TYPE_GUNNER	12
-//#define OBJECT_TYPE_DOMES		13
-//#define HUD_Y					20
 
 PlayScene::PlayScene() : Scene()
 {
