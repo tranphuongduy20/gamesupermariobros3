@@ -207,7 +207,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						if (goomba->GetState() != GOOMBA_STATE_DIE)
 						{
 							goomba->SetState(GOOMBA_STATE_DIE);
-							goomba->makeEffect = true;
+							goomba->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
@@ -218,6 +218,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						{
 							goomba->SetState(GOOMBA_RED_STATE_NO_WING_WALK);	//khi co canh thi ve trang thai di bo							
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
+							goomba->make200 = true;
 							goomba->hasWing = false;
 							isJumping = true;
 						}
@@ -228,6 +229,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 								goomba->SetState(GOOMBA_RED_STATE_NO_WING_DIE);
 								vy = -MARIO_JUMP_DEFLECT_SPEED;
 								isJumping = true;
+								goomba->make100 = true;
 							}
 						}
 					}
@@ -296,28 +298,28 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						if (koopa->GetState() == KOOPA_RED_STATE_WALKING_RIGHT || koopa->GetState() == KOOPA_RED_STATE_WALKING_LEFT)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
 						else if (koopa->GetState() == KOOPA_RED_STATE_DIE_AND_MOVE)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
 						else if (koopa->GetState() == KOOPA_RED_STATE_DIE_AND_MOVE_UP)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE_UP);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
 						else if (koopa->GetState() == KOOPA_RED_STATE_DIE)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE_AND_MOVE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							if (lastnx > 0)
 							{
@@ -332,7 +334,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						{
 							koopa->SetState(KOOPA_RED_STATE_DIE_AND_MOVE_UP);
 							
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							if (lastnx > 0)
 							{
 								koopa->nx = 1;
@@ -407,7 +409,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 								koopa->SetState(KOOPA_GREEN_STATE_WALKING_RIGHT);
 							else
 								koopa->SetState(KOOPA_GREEN_STATE_WALKING_LEFT);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							koopa->hasWing = false;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
@@ -415,21 +417,21 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						else if (koopa->GetState() == KOOPA_GREEN_STATE_WALKING_LEFT || koopa->GetState() == KOOPA_GREEN_STATE_WALKING_RIGHT)
 						{
 							koopa->SetState(KOOPA_GREEN_STATE_DIE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
 						else if (koopa->GetState() == KOOPA_GREEN_STATE_DIE_AND_MOVE)
 						{
 							koopa->SetState(KOOPA_GREEN_STATE_DIE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
 						else if (koopa->GetState() == KOOPA_GREEN_STATE_DIE_AND_MOVE_UP)
 						{
 							koopa->SetState(KOOPA_GREEN_STATE_DIE_UP);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
@@ -437,7 +439,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						{
 
 							koopa->SetState(KOOPA_GREEN_STATE_DIE_AND_MOVE);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							if (lastnx > 0)
 							{
 								koopa->nx = 1;
@@ -450,7 +452,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						else if (koopa->GetState() == KOOPA_GREEN_STATE_DIE_UP)
 						{
 							koopa->SetState(KOOPA_GREEN_STATE_DIE_AND_MOVE_UP);
-							//koopa->makeEffect = true;
+							koopa->make100 = true;
 							if (lastnx > 0)
 							{
 								koopa->nx = 1;
@@ -545,12 +547,9 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 	if (holdthing && Game::GetInstance()->IsKeyDown(DIK_A))
 	{
 		if (level == MARIO_LEVEL_SMALL)
-			//holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 15);
-			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 5);
-		//else if (level == MARIO_LEVEL_RACCOON)
-		//	holdthing->SetPosition(nx == 1 ? k + nx * 17 : k + nx * 13, /*holdthing->Gety*/ l - 5);
+			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, l - 5);
 		else
-			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, /*holdthing->Gety*/ l - 5);
+			holdthing->SetPosition(nx == 1 ? k + nx * 10 : k + nx * 13, l - 5);
 	}
 
 
@@ -559,47 +558,37 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 
 void Player::Collision_items(vector<LPGAMEENTITY>* coObjects)
 {
-	float l, t, r, b, ln, tn, rn, btn;
-	GetBoundingBox(l, t, r, b);
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		LPGAMEENTITY e = coObjects->at(i);
-		e->GetBoundingBox(ln, tn, rn, btn);
-		if (Entity::CheckAABB(l, t, r, b, ln, tn, rn, btn))
-		{
+	//float l, t, r, b, ln, tn, rn, btn;
+	//GetBoundingBox(l, t, r, b);
+	//for (UINT i = 0; i < coObjects->size(); i++)
+	//{
+	//	LPGAMEENTITY e = coObjects->at(i);
+	//	e->GetBoundingBox(ln, tn, rn, btn);
+	//	if (Entity::CheckAABB(l, t, r, b, ln, tn, rn, btn))
+	//	{
 
-			if (e->GetType() == EntityType::MUSH)
-			{
-				e->isdone = true;
-				y -= 20;
-				level = MARIO_LEVEL_BIG;
-			}
-			else if (e->GetType() == EntityType::LEAF)
-			{
-				y -= 5;
-				e->isdone = true;
-				level = MARIO_LEVEL_RACCOON;
-			}
-			/*else if (e->id_items == FIRE_FLOWER)
-			{
-				e->isdone = true;
-				level = MARIO_FIRE;
-			}*/
-		}
-	}
+	//		if (e->GetType() == EntityType::MUSH)
+	//		{
+	//			e->isdone = true;
+	//			y -= 20;
+	//			level = MARIO_LEVEL_BIG;
+
+	//		}
+	//		else if (e->GetType() == EntityType::LEAF)
+	//		{
+	//			y -= 5;
+	//			e->isdone = true;
+	//			level = MARIO_LEVEL_RACCOON;
+	//		}
+	//		/*else if (e->id_items == FIRE_FLOWER)
+	//		{
+	//			e->isdone = true;
+	//			level = MARIO_FIRE;
+	//		}*/
+	//	}
+	//}
 }
 
-//void Player::SetInjured(int dame)
-//{
-//	if (isImmortaling)
-//		return;
-//	health -= dame;
-//	gunDam -= dame;
-//G
-//	StartUntouchable();
-//	immortalTimer->Start();
-//	isImmortaling = true;
-//}
 
 void Player::Render()
 {

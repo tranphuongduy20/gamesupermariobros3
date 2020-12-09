@@ -58,7 +58,13 @@ public:
 	int health;
 
 	bool holdthing;
-	bool makeEffect;
+	bool make100;
+	bool make200;
+	bool make400;
+	bool make600;
+	bool make800;
+	bool make1000;
+	bool make2000;
 
 	bool isdone;
 	int id_goomba;

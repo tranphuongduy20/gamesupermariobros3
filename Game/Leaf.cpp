@@ -1,6 +1,7 @@
 #include "Leaf.h"
 #include "Brick.h"
 #include "CBrick.h"
+#include "Point.h"
 Leaf::Leaf(float posX, float posY)
 {
 	//alpha = 0;
@@ -27,6 +28,14 @@ void Leaf::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Leaf::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
+	if (make100)
+	{
+		Point* point = new Point();
+		point->SetPosition(x, y);
+		point->SetState(MAKE_100);
+		make100 = false;
+		listEffect.push_back(point);
+	}
 	if (isDeath)
 		return;
 	Entity::Update(dt, coObjects);
@@ -69,6 +78,10 @@ void Leaf::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 
 	x += dx;
 	y += dy;
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Update(dt, coObjects);
+	}
 	//vector<LPCOLLISIONEVENT> coEvents;
 	//vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -148,6 +161,10 @@ void Leaf::Render()
 	else
 		nx = 1;
 	animationSet->at(ani)->Render(nx, x, y, alpha);
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Render();
+	}
 	RenderBoundingBox();
 }
 

@@ -130,7 +130,7 @@
     <ClCompile Include="EffectBrick.cpp">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClCompile>
-    <ClCompile Include="MonneyEffect.cpp">
+    <ClCompile Include="Point.cpp">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
@@ -264,7 +264,7 @@
     <ClInclude Include="EffectBrick.h">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
-    <ClInclude Include="MonneyEffect.h">
+    <ClInclude Include="Point.h">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,11 @@
 #include "PlayScene.h"
 #include "Textures.h"
-#include "MonneyEffect.h"
+#include "Point.h"
 
 #define OBJECT_TYPE_MARIO		0
 #define OBJECT_TYPE_BRICK		1
 #define OBJECT_TYPE_GATE		2
-#define OBJECT_TYPE_KOOPA_RED		3
+#define OBJECT_TYPE_KOOPA_RED	3
 #define OBJECT_TYPE_CBRICK		4
 #define OBJECT_TYPE_MUSHROOM	5
 #define OBJECT_TYPE_LEAF		6
@@ -184,12 +184,18 @@ void PlayScene::PlayerTailAttackEnemy()
 			if (goomba->id_goomba == GOOMBA_NORMAL)
 			{
 				if (tail->IsCollidingObject(listEnemies[i]))
+				{
 					listEnemies[i]->SetState(GOOMBA_STATE_DIE_FLY);
+					goomba->make100 = true;
+				}
 			}
 			else if (goomba->id_goomba == GOOMBA_RED)
 			{
 				if (tail->IsCollidingObject(listEnemies[i]))
+				{
 					listEnemies[i]->SetState(GOOMBA_RED_STATE_NO_WING_DIE_FLY);
+					goomba->make100 = true;
+				}
 			}
 		}
 		else if (listEnemies[i]->GetType() == EntityType::KOOPA)
@@ -244,14 +250,16 @@ void PlayScene::PlayerTouchItem()
 			{
 				Mushroom* mush = dynamic_cast<Mushroom*>(listitems[i]);
 				if (mush->isOnTop == false)
+				{
 					listitems[i]->SetState(MUSHROOM_STATE_WALKING);
+				}
 				else
 				{
 					player->SetLevel(MARIO_LEVEL_BIG);
 					player->y -= 13;
 					mush->isDone = true;
 				}
-				//player->vy = 0;
+				//mush->make100 = true;
 			}
 		}
 		if (listitems[i]->GetType() == EntityType::MONEY)
@@ -282,10 +290,12 @@ void PlayScene::PlayerTouchItem()
 			if (player->IsCollidingObject(listLeaf[i]))
 			{
 				Leaf* leaf = dynamic_cast<Leaf*>(listLeaf[i]);
+				leaf->make100 = true;
 				if (leaf->isOnTop == false)
 					listLeaf[i]->SetState(LEAF_STATE_WALKING);
 				else
 				{
+					leaf->make100 = true;
 					player->SetLevel(MARIO_LEVEL_RACCOON);
 					leaf->isDeath = true;
 				}

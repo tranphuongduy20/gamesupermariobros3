@@ -18,6 +18,7 @@ class Leaf : public Entity
 
 public:
 	DWORD timeDelay;
+	vector <LPGAMEENTITY> listEffect;
 	int alpha;
 	float oldY;
 	float oldX;

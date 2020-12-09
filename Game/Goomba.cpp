@@ -1,7 +1,7 @@
 #include "Goomba.h"
 #include "Brick.h"
 #include "CBrick.h"
-#include "MonneyEffect.h"
+#include "Point.h"
 
 Goomba::Goomba(Player* mario)
 {
@@ -116,13 +116,21 @@ void Goomba::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		if (GetState() != GOOMBA_STATE_DIE && GetState() != GOOMBA_STATE_DIE_FLY)
 			SetState(GOOMBA_STATE_WALKING);
 	}
-	if (makeEffect)
+	if (make100)
 	{
-		MonneyEffect* monneyeffect = new MonneyEffect();
-		monneyeffect->SetPosition(x, y);
-		monneyeffect->SetState(MAKE_100);
-		makeEffect = false;
-		listEffect.push_back(monneyeffect);
+		Point* point = new Point();
+		point->SetPosition(x, y);
+		point->SetState(MAKE_100);
+		make100 = false;
+		listEffect.push_back(point);
+	}
+	if (make200)
+	{
+		Point* point = new Point();
+		point->SetPosition(x, y);
+		point->SetState(MAKE_200);
+		make200 = false;
+		listEffect.push_back(point);
 	}
 
 	Entity::Update(dt);
@@ -156,10 +164,6 @@ void Goomba::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 
 		if (ny != 0)
 			vy = 0;
-
-
-
-
 		//Collision logic with other objects
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)

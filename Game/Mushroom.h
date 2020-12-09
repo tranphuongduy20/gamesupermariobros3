@@ -19,6 +19,7 @@ class Mushroom : public Entity
 
 public:
 	DWORD timeDelay;
+	vector <LPGAMEENTITY> listEffect;
 	int alpha;
 	float oldY;
 	bool isDone;

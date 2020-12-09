@@ -1,10 +1,10 @@
-#include "MonneyEffect.h"
+#include "Point.h"
 
-MonneyEffect::MonneyEffect()
+Point::Point()
 {
 	this->SetAnimationSet(CAnimationSets::GetInstance()->Get(22));
 }
-void MonneyEffect::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
+void Point::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
 	if (!isdone)
 	{
@@ -19,21 +19,17 @@ void MonneyEffect::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 	}
 }
 
-void MonneyEffect::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Point::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	/*left = x;
-	top = y;
-	right = x + 8;
-	bottom = y + 8;*/
 }
 
-void MonneyEffect::Render()
+void Point::Render()
 {
 	if (!isdone)
 		animationSet->at(state)->Render(nx, x, y);
 }
 
-void MonneyEffect::SetState(int State)
+void Point::SetState(int State)
 {
 	Entity::SetState(State);
 	switch (State)

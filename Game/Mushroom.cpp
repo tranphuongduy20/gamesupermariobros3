@@ -1,5 +1,7 @@
 #include "Mushroom.h"
 #include "Brick.h"
+#include "Point.h"
+
 Mushroom::Mushroom(float posX, float posY)
 {
 	x = posX;
@@ -33,6 +35,14 @@ void Mushroom::GetBoundingBox(float& left, float& top, float& right, float& bott
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
+	if (make100)
+	{
+		Point* point = new Point();
+		point->SetPosition(x, y);
+		point->SetState(MAKE_100);
+		make100 = false;
+		listEffect.push_back(point);
+	}
 	if (isDone)
 		return;
 	Entity::Update(dt, coObjects);
@@ -57,7 +67,7 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 			}
 		}
 	}
-
+	
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -98,6 +108,10 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 			}
 		}
 	}
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Update(dt, coObjects);
+	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
@@ -108,7 +122,10 @@ void Mushroom::Render()
 	int ani = MUSHROOM_ANI_WALKING;
 
 	animationSet->at(ani)->Render(nx, x, y, alpha);
-
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Render();
+	}
 	RenderBoundingBox();
 }
 

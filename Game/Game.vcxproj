@@ -154,7 +154,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Gate.h" />
-    <ClInclude Include="MonneyEffect.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="RaccoonTail.h" />
     <ClInclude Include="Scene.h" />
@@ -200,7 +200,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Gate.cpp" />
-    <ClCompile Include="MonneyEffect.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="RaccoonTail.cpp" />
     <ClCompile Include="Scene.cpp" />

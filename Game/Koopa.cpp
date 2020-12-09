@@ -1,5 +1,5 @@
 #include "Koopa.h"
-//#include "MonneyEffect.h"
+#include "Point.h"
 #include "BrokenBrick.h"
 #include "Brick.h"
 #include "CBrick.h"
@@ -179,17 +179,15 @@ void Koopa::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 			}
 		}
 	}
-	//
-	// TO-DO: make sure Koopas can interact with the world and to each of them too!
-	// 
-	/*if (makeEffect)
+
+	if (make100)
 	{
-		CMonneyEffect* monneyeffect = new CMonneyEffect();
-		monneyeffect->SetPosition(x, y);
-		monneyeffect->SetState(MAKE_100);
-		makeEffect = false;
-		listEffect.push_back(monneyeffect);
-	}*/
+		Point* point = new Point();
+		point->SetPosition(x, y);
+		point->SetState(MAKE_100);
+		make100 = false;
+		listEffect.push_back(point);
+	}
 
 	Entity::Update(dt);
 	if (state != KOOPA_RED_STATE_HOLDING &&

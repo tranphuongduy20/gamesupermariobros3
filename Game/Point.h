@@ -10,10 +10,10 @@
 #define MAKE_4000 6
 #define MAKE_8000 7
 
-class MonneyEffect : public Entity
+class Point : public Entity
 {
 public:
-	MonneyEffect();
+	Point();
 	float start_y;
 	virtual void Update(DWORD dt, vector<LPGAMEENTITY>* coObjects);
 	virtual void Render();
