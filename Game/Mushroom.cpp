@@ -42,9 +42,8 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		point->SetState(MAKE_100);
 		make100 = false;
 		listEffect.push_back(point);
+		isDone = true;
 	}
-	if (isDone)
-		return;
 	Entity::Update(dt, coObjects);
 	if (isOnTop)
 	{
@@ -117,15 +116,16 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 
 void Mushroom::Render()
 {
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Render();
+	}
 	if (isDone)
 		return;
 	int ani = MUSHROOM_ANI_WALKING;
 
 	animationSet->at(ani)->Render(nx, x, y, alpha);
-	for (int i = 0; i < listEffect.size(); i++)
-	{
-		listEffect[i]->Render();
-	}
+	
 	RenderBoundingBox();
 }
 

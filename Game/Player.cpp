@@ -1,5 +1,6 @@
 ﻿#include <algorithm>
 #include <assert.h>
+#include <string>
 #include "debug.h"
 
 #include "Player.h"
@@ -11,6 +12,8 @@
 #include "Koopa.h"
 #include "Mushroom.h"
 #include "Coin.h"
+
+using namespace std;
 
 Player::Player(float x, float y) : Entity()
 {
@@ -39,6 +42,7 @@ Player* Player::GetInstance()
 
 void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 {
+	DebugOut(L"\n true - %d", GetSpeedLevel());
 	Entity::Update(dt);
 #pragma region Xử lý vy
 	vy += MARIO_GRAVITY * dt;
@@ -65,7 +69,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 #pragma region RUN
 	if (isRun == true && vx != 0)
 	{
-		if (abs(vx) < MARIO_VMAX)
+		//if (abs(vx) < MARIO_VMAX)
 			vx += MARIO_SPEEEDUP * nx;
 	}
 #pragma endregion
@@ -208,6 +212,8 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						{
 							goomba->SetState(GOOMBA_STATE_DIE);
 							goomba->make100 = true;
+
+							Game::GetInstance()->Score += 100;
 							vy = -MARIO_JUMP_DEFLECT_SPEED;
 							isJumping = true;
 						}
@@ -816,7 +822,9 @@ void Player::SetState(int state)
 		nx = 1;
 		if (isRun == true)
 			return;
-		vx = MARIO_WALKING_SPEED;
+		// vx = MARIO_WALKING_SPEED;
+		vx += MARIO_WALKING_ACC * dt;
+		if (vx > MARIO_WALKING_SPEED) vx = MARIO_WALKING_SPEED;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		isCrouch = false;
@@ -824,7 +832,8 @@ void Player::SetState(int state)
 		nx = -1;
 		if (isRun == true)
 			return;
-		vx = -MARIO_WALKING_SPEED;
+		vx -= MARIO_WALKING_ACC * dt;
+		if (vx < -MARIO_WALKING_SPEED) vx = -MARIO_WALKING_SPEED;
 		break;
 	case MARIO_STATE_IDLE:
 		isSpin = false;
@@ -832,7 +841,7 @@ void Player::SetState(int state)
 		isRun = false;
 		isPressJump = false;
 		isCrouch = false;
-		/*if (vx > 0) {
+		if (vx > 0) {
 			vx -= MARIO_WALKING_ACC * dt;
 			if (vx < 0)
 				vx = 0;
@@ -841,8 +850,8 @@ void Player::SetState(int state)
 			vx += MARIO_WALKING_ACC * dt;
 			if (vx > 0)
 				vx = 0;
-		}*/
-		vx = 0;
+		}
+		//vx = 0;
 		break;
 	case MARIO_STATE_JUMP:
 		isPressJump = true;

@@ -119,6 +119,8 @@
 
 #define HIGHT_LEVER1 50
 
+#define MAX_SPEED_LEVEL 5
+
 
 class Player : public Entity
 {
@@ -169,10 +171,15 @@ public:
 
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	bool GetIsRun() { return this->isRun == true && this->vx != 0; }
+	int GetSpeedLevel() { 
+		if (vx == 0)	return -1;
+		return abs(vx / MARIO_VMAX) * MAX_SPEED_LEVEL; 
+	}
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void GetInfoForBullet(int& direct, float& playerx, float& playery) { direct = nx; playerx = x; playery = y; }
 	void GetInfo(float& playerx, float& playery) { playerx = x; playery = y; }
-	void startWalkingDone() { startWalkingComplete = GetTickCount(); }
+	void startWalkingDone() { startWalkingComplete = GetTickCount64(); }
 	void SetDirection(int direct) { direction = direct; }
 	void Setvx(float vx) { vx = vx; }
 	void Setvy(float vy) { vy = vy; }

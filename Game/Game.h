@@ -34,7 +34,6 @@ class Game
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
-	float timer = MAXTIMER;
 
 public:
 
@@ -55,7 +54,13 @@ public:
 
 	static Game* GetInstance();
 
+	float Timer;
+	void ResetTimer() { this->Timer = MAXTIMER; }
+	void TimerTick(float dt) { 
+		if(this->Timer > 0)	this->Timer -= dt / 1000; 
+	}
 
+	int Score;
 
 	void OldDraw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	void MapDraw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);

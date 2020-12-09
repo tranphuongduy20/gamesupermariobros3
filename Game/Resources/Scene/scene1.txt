@@ -475,12 +475,12 @@
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 
 # KOOPAS
-#3	50	380	3	16	27
+3	2050	380	3	16	27
 #14	70	380	3	16	27
 
 # GOOMBA
 11	160	395	2	16	16	1
-#11	270	390	2	16	16	2
+#11	270	390	2	16	16	1
 
 # MUSHROOM
 5	195	352	11	16	16
@@ -609,4 +609,4 @@
 
 [TILEMAP]
 #tile id	file_texture	file_path	num row on tex	num col on tex	num row on tilemap	num col tilemap	tile size
-1000	Resources\TileMap\1.png	Resources\TileMap\loadmap2.txt	27	176	27	176	16	16
+1000	Resources\TileMap\Map2.png	Resources\TileMap\loadmap3.txt	41	176	41	176	16	16

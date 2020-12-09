@@ -35,9 +35,10 @@ void Leaf::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		point->SetState(MAKE_100);
 		make100 = false;
 		listEffect.push_back(point);
+		isDeath = true;
 	}
-	if (isDeath)
-		return;
+	/*if (isDeath)
+		return;*/
 	Entity::Update(dt, coObjects);
 	if (isOnTop)
 	{
@@ -75,84 +76,28 @@ void Leaf::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 			}
 		}
 	}
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 
+	coEvents.clear();
+
+
+	CalcPotentialCollisions(coObjects, coEvents);
 	x += dx;
 	y += dy;
 	for (int i = 0; i < listEffect.size(); i++)
 	{
 		listEffect[i]->Update(dt, coObjects);
 	}
-	//vector<LPCOLLISIONEVENT> coEvents;
-	//vector<LPCOLLISIONEVENT> coEventsResult;
-
-	//coEvents.clear();
-
-
-	//CalcPotentialCollisions(coObjects, coEvents);
-
-	//// No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	//	//x += dx;
-	//	//y += dy;
-	//}
-	//else
-	//{
-	//	float min_tx, min_ty, nx = 0, ny;
-	//	float rdx = 0;
-	//	float rdy = 0;
-
-	//	// TODO: This is a very ugly designed function!!!!
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-	//	// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-	//	//if (rdx != 0 && rdx!=dx)
-	//	//	x += nx*abs(rdx); 
-
-	//	// block every object first!
-	//	x += min_tx * dx + nx * 0.4f;
-	//	y += min_ty * dy + ny * 0.4f;
-
-	//	//if (nx != 0) vx = 0;
-	//	if (ny != 0) vy = 0;
-
-
-	//	//
-	//	// Collision logic with other objects
-	//	//
-	//	//DebugOut(L"SOPT:%d \n", coEvents.size());
-	//	/*if (coEvents.size() >= 3 )
-	//		vx *= -1;*/
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
-	//		/*if (dynamic_cast<Brick*>(e->obj))
-	//			if (e->nx != 0)vx = -1 * vx;*/
-	//		//if (e->obj->GetType() == EntityType::BRICK) // if e->obj is CBrick 
-	//		//{
-	//		//	Brick* brick = dynamic_cast<Brick*>(e->obj);
-	//		//	/*x += min_tx * dx + nx * 0.4f;
-	//		//	y += min_ty * dy + ny * 0.001f;*/
-	//		//	if (nx != 0) vx = 0;
-	//		//	if (ny != 0) vy = 0;
-	//		//	if (e->ny != 0)
-	//		//	{
-	//		//		if (e->ny == -1)
-	//		//		{
-	//		//			isDeath = true;
-	//		//			//isFly = false;
-	//		//			//vy = 0;
-	//		//		}
-	//		//	}
-	//		//}
-	//	
-	//	}
-	//}
-	//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void Leaf::Render()
 {
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Render();
+	}
 	if (isDeath)
 		return;
 	int ani = LEAF_ANI_WALKING;
@@ -161,10 +106,6 @@ void Leaf::Render()
 	else
 		nx = 1;
 	animationSet->at(ani)->Render(nx, x, y, alpha);
-	for (int i = 0; i < listEffect.size(); i++)
-	{
-		listEffect[i]->Render();
-	}
 	RenderBoundingBox();
 }
 

@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "Textures.h"
 #include "Point.h"
+#include "Game.h"
 
 #define OBJECT_TYPE_MARIO		0
 #define OBJECT_TYPE_BRICK		1
@@ -23,6 +24,8 @@ PlayScene::PlayScene() : Scene()
 	keyHandler = new PlayScenceKeyHandler(this);
 	LoadBaseObjects();
 	ChooseMap(STAGE_1);
+	Game::GetInstance()->ResetTimer();
+	
 }
 
 void PlayScene::LoadBaseObjects()
@@ -96,6 +99,8 @@ void PlayScene::Update(DWORD dt)
 {
 #pragma region Camera
 	Game* game = Game::GetInstance();
+	game->TimerTick(dt);
+
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
@@ -257,9 +262,10 @@ void PlayScene::PlayerTouchItem()
 				{
 					player->SetLevel(MARIO_LEVEL_BIG);
 					player->y -= 13;
-					mush->isDone = true;
+					mush->make100 = true;
+					Game::GetInstance()->Score += 100;
 				}
-				//mush->make100 = true;
+				
 			}
 		}
 		if (listitems[i]->GetType() == EntityType::MONEY)
@@ -290,14 +296,14 @@ void PlayScene::PlayerTouchItem()
 			if (player->IsCollidingObject(listLeaf[i]))
 			{
 				Leaf* leaf = dynamic_cast<Leaf*>(listLeaf[i]);
-				leaf->make100 = true;
 				if (leaf->isOnTop == false)
 					listLeaf[i]->SetState(LEAF_STATE_WALKING);
 				else
 				{
-					leaf->make100 = true;
 					player->SetLevel(MARIO_LEVEL_RACCOON);
 					leaf->isDeath = true;
+					leaf->make100 = true;
+					Game::GetInstance()->Score += 100;
 				}
 			}
 		}

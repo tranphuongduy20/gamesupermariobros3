@@ -11,6 +11,7 @@ Game* Game::GetInstance()
 
 Game::Game()
 {
+	Score = 0;
 }
 
 Game::~Game()
