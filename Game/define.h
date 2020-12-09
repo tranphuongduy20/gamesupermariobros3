@@ -129,6 +129,7 @@ enum EntityType
 	MONEY = 33,
 	CBRICK = 34,
 	BROKENBRICK = 35,
+	BRICKSTAND = 36,
 
 
 	//Item Zone 40-70

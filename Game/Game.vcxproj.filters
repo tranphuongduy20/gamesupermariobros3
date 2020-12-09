@@ -133,6 +133,9 @@
     <ClCompile Include="HUD.cpp">
       <Filter>Header Files\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="BrickStand.cpp">
+      <Filter>Header Files\Object\Obstacle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h">
@@ -266,6 +269,9 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickStand.h">
+      <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

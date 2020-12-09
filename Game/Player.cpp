@@ -170,16 +170,10 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 					else
 						y += dy;
 				}
-				//if (e->ny < 0)
-				//{
-				//	isJumping = false;
-				//}
 			}
 			else if (e->obj->GetType() == EntityType::CBRICK)  
 			{
 				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				/*x += min_tx * dx + nx * 0.4f;
-				y += min_ty * dy + ny * 0.001f;*/
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
 				if (e->ny != 0)
@@ -188,16 +182,25 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 					{
 						isGround = true;
 						isJumping = false;
-						//isFly = false;
-						//vy = 0;
 					}
-					/*else
-						y += dy;*/
-
 				}
 				if (e->ny > 0)
 				{
 					brick->SetState(CBRICK_STATE_COLLISION);
+				}
+			}
+			else if (e->obj->GetType() == EntityType::BRICKSTAND)
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+				if (e->ny != 0)
+				{
+					if (e->ny == -1)
+					{
+						isGround = true;
+						isJumping = false;
+					}
 				}
 			}
 			else if (e->obj->GetType() == EntityType::GOOMBA)

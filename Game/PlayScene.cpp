@@ -18,6 +18,7 @@
 #define OBJECT_TYPE_MONEY		12
 #define OBJECT_TYPE_BROKEN_BRICK	13
 #define OBJECT_TYPE_KOOPA_GREEN		14
+#define OBJECT_TYPE_BRICKSTAND	15
 
 PlayScene::PlayScene() : Scene()
 {
@@ -771,7 +772,6 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new Brick(atof(tokens[4].c_str()),atof(tokens[5].c_str()));
 		obj->SetPosition(x, y);
-		
 		listObjects.push_back(obj);
 		DebugOut(L"[test] add brick !\n");
 		break;
@@ -785,6 +785,14 @@ void PlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetAnimationSet(ani_set);
 		listObjects.push_back(obj);
 		DebugOut(L"[test] add cbrick !\n");
+		break;
+	}
+	case OBJECT_TYPE_BRICKSTAND:
+	{
+		obj = new BrickStand(atof(tokens[4].c_str()), atof(tokens[5].c_str()));
+		obj->SetPosition(x, y);
+		listObjects.push_back(obj);
+		DebugOut(L"[test] add brick !\n");
 		break;
 	}
 	case OBJECT_TYPE_BROKEN_BRICK:

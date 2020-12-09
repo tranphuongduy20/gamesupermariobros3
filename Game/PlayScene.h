@@ -14,6 +14,7 @@
 //#include "HUD.h"
 #include "Brick.h"
 #include "CBrick.h"
+#include "BrickStand.h"
 #include "BrokenBrick.h"
 #include "Koopa.h"
 #include "Goomba.h"
@@ -65,6 +66,7 @@ protected:
 	vector<LPGAMEENTITY> listLeaf;
 	vector<LPGAMEENTITY> listitems;
 	vector<LPGAMEENTITY> listCoins;
+	vector<LPGAMEENTITY> listBrick;
 	int idStage;
 	int mapWidth, mapHeight;
 	int camMaxWidth;
