@@ -1,5 +1,6 @@
 # id	file_path	transparent_color_r	g	b
 [TEXTURES]
+5	Resources\Textures\Title\ui.png	255	127	39
 10	Resources\Textures\Enemy\enemies1.png	3	26	100
 20	Resources\Textures\Item\misc1.png	255	255	255
 30	Resources\Textures\Enemy\enemy.png	255	255	255
@@ -34,6 +35,47 @@
 30011	141	62	20	24	30
 #GOOMBA RED DIE FLY
 30012	244	11	20	24	30
+
+#----------------- HUD ------------------
+
+#[NUMBER + FONT]
+0	77	31	8	7	5
+1	87	31	8	7	5
+2	97	31	8	7	5
+3	107	31	8	7	5
+4	117	31	8	7	5
+5	127	31	8	7	5
+6	137	31	8	7	5
+7	147	31	8	7	5
+8	157	31	8	7	5
+9	167	31	8	7	5
+
+#[main card]
+20	12	128	152	29	5
+
+#[item card]
+#empty card
+21	160	159	24	28	5
+#mushroom card
+22
+#flower card
+23
+#star card
+24
+#mario tag
+25	16	161	16	7	5
+#luigi tag
+26	16	171	16	7	5
+#bar segment unfill
+27	91	162	8	7	5
+#bar segment fill
+28	64	162	8	7	5
+#p unfill
+29	100	162	15	7	5
+#p fill
+30	73	162	15	7	5
+
+
 
 #======KOOPAS=============
 #=====Red Koopa===========

@@ -11,7 +11,7 @@
 #include "KeyboardHandler.h"
 #include "Camera.h"
 
-using namespace std;
+#define MAXTIMER 300.0f
 
 class Game
 {
@@ -34,6 +34,7 @@ class Game
 
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
+	float timer = MAXTIMER;
 
 public:
 
@@ -54,6 +55,8 @@ public:
 
 	static Game* GetInstance();
 
+
+
 	void OldDraw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	void MapDraw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
 	void Draw(int direction, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha);
@@ -62,6 +65,8 @@ public:
 	void SetCamPos(float x, float y) { cam_x = cam_x < 0 ? 0 : x; cam_y = y; }
 	float GetCamPosX() { return cam_x; }
 	float GetCamPosY() { return cam_y; }
+
+	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
 	static bool IsCollidingAABB(
 		float ml,			// move left 

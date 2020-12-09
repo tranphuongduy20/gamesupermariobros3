@@ -1,27 +1,151 @@
-//#include "HUD.h"
-//
-//HUD::HUD(int initPlayerHB, int initGunHealth)
-//{
-//	UIanimationSet = CAnimationSets::GetInstance()->Get(ANIMATION_SET_PLAYERHP);
-//	gunHB = new HealthBar(initGunHealth, true);
-//	playerHB = new HealthBar(initPlayerHB, false);
-//}
-//
-//HUD::~HUD() {}
-//
-//void HUD::Update(float x, float y, int currentPlayerHealth, int currentGunHealth)
-//{
-//	this->x = x;
-//	this->y = y;
-//
-//	gunHB->Update(currentGunHealth, x + 2, y + 7.8); // Hard code -> Dieu chinh khoang cach cac unit mau cua Gun #LKP
-//	playerHB->Update(currentPlayerHealth, x + 3, y + 112.5); // Hard code -> Dieu chinh khoang cach cac unit mau cua Player #LKP
-//}
-//
-//void HUD::Render(Player* playerInfo)
-//{
-//	UIanimationSet->at(HEALTH_TYPE_GUN_NULL)->Render(1, x, y + ARTICULAR_GUNPOWER_HEALTHBAR_Y);
-//	UIanimationSet->at(HEALTH_TYPE_PLAYER_NULL)->Render(1, x, y + ARTICULAR_PLAYER_HEALTHBAR_Y);
-//	gunHB->Render();
-//	playerHB->Render();
-//}
+#include "HUD.h"
+#include "Game.h"
+#include "Sprites.h"
+#include "Textures.h"
+#include "Entity.h"
+
+#include <string>
+
+void HUD::Load()
+{
+
+}
+
+void HUD::Draw()
+{
+	DrawBackground();
+	DrawCard();
+	DrawScore();
+	DrawSpeedBar();
+	DrawTags();
+	DrawTimer();
+}
+
+void HUD::DrawBackground()
+{
+	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(-200);
+
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	RECT size;
+	size.left = 0;
+	size.top = 0;
+	size.right = size.left + 330;
+	size.bottom = size.top + 100;
+
+	Game::GetInstance()->Draw(0, cam_x, cam_y + 184 + 1, tex, size.left, size.top, size.right, size.bottom, 255);
+}
+
+void HUD::DrawCard()
+{
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	auto sprites = CSprites::GetInstance();
+
+	CSprite* hud = sprites->Get(20);
+	hud->Draw(1, cam_x + 10, cam_y + 184 + 4);
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		LPSPRITE card = sprites->Get(21);
+		card->Draw(1, cam_x + 10 + 152 + 12 + i * 24, cam_y + 184 + 4);
+	}
+}
+
+void HUD::DrawScore()
+{
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE num = sprites->Get(0);
+
+	int score = 23451;
+	string scoreString = NumberToString(score, 7);
+	for (size_t i = 0; i < scoreString.length(); i++)
+	{
+
+		if (scoreString[i] == ' ')
+			continue;
+
+		for (size_t j = 0; j < 10; j++)
+		{
+			if (scoreString[i] == 48 + j)
+			{
+				num = sprites->Get(j);
+			}
+		}
+		num->Draw(1, cam_x + 10 + 51 + i * 8, cam_y + 184 + 4 + 15);
+	}
+}
+
+void HUD::DrawTags()
+{
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	auto sprites = CSprites::GetInstance();
+
+	auto worldTag = sprites->Get(1);
+	worldTag->Draw(1, cam_x + 10 + 36, cam_y + 184 + 4 + 7);
+
+	auto characterTag = sprites->Get(25);
+	characterTag->Draw(1, cam_x + 10 + 4, cam_y + 184 + 4 + 15);
+}
+
+void HUD::DrawTimer()
+{
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	auto sprites = CSprites::GetInstance();
+	LPSPRITE num = sprites->Get(0);
+
+	int time = 100;
+	string scoreString = NumberToString(time, 3);
+	for (size_t i = 0; i < scoreString.length(); i++)
+	{
+
+		if (scoreString[i] == ' ')
+			continue;
+
+		for (size_t j = 0; j < 10; j++)
+		{
+			if (scoreString[i] == 48 + j)
+			{
+				num = sprites->Get(j);
+			}
+		}
+		num->Draw(1, cam_x + 10 + 124 + i * 8, cam_y + 184 + 4 + 15);
+	}
+}
+
+void HUD::DrawSpeedBar()
+{
+	float cam_x, cam_y;
+	Game::GetInstance()->GetCamPos(cam_x, cam_y);
+
+	auto sprites = CSprites::GetInstance();
+
+	for (int i = 0; i < 6; i++)
+	{
+		auto barSegment = sprites->Get(27);
+		barSegment->Draw(1, cam_x + 10 + 51 + i * 8, cam_y + 184 + 4 + 6);
+	}
+
+	auto p = sprites->Get(29);
+	p->Draw(1, cam_x + 10 + 99, cam_y + 184 + 4 + 6);
+}
+
+string HUD::NumberToString(int num, int numOfChar)
+{
+	string numStr = to_string(num);
+	int delta = numOfChar - numStr.length();
+	for (int i = 0; i < delta; i++)
+	{
+		numStr = "0" + numStr;
+	}
+	return numStr;
+}

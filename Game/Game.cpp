@@ -222,7 +222,7 @@ void Game::MapDraw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int t
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
-void Game::Draw(int direction, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void Game::Draw(int direction, float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255)
 {
 	D3DXVECTOR3 p( x - cam_x, y - cam_y, 0);
 	RECT r;

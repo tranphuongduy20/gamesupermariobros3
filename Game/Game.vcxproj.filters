@@ -85,9 +85,6 @@
     <ClCompile Include="ElectricBullet.cpp">
       <Filter>Header Files\Bin</Filter>
     </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Header Files\Bin</Filter>
-    </ClCompile>
     <ClCompile Include="CBrick.cpp">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClCompile>
@@ -132,6 +129,9 @@
     </ClCompile>
     <ClCompile Include="Point.cpp">
       <Filter>Header Files\Object\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Header Files\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +219,6 @@
     <ClInclude Include="ElectricBullet.h">
       <Filter>Header Files\Bin</Filter>
     </ClInclude>
-    <ClInclude Include="HUD.h">
-      <Filter>Header Files\Bin</Filter>
-    </ClInclude>
     <ClInclude Include="CBrick.h">
       <Filter>Header Files\Object\Obstacle</Filter>
     </ClInclude>
@@ -266,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>Header Files\Object\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

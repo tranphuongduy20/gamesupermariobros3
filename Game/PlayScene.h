@@ -4,6 +4,7 @@
 #include <d3dx9.h>
 #include <stdio.h>
 #include "TileMap.h"
+#include "HUD.h"
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Game.h"
@@ -48,7 +49,7 @@ class PlayScene : public Scene
 protected:
 	TileMap* tilemap;
 	Player* player;
-	//HUD* gameHUD;
+	HUD* gameHUD;
 	Bullet* bullet1;
 	Bullet* bullet2;
 	RaccoonTail* tail;

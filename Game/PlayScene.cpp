@@ -1052,6 +1052,7 @@ void PlayScene::LoadSceneObjects()
 
 	f.close();
 	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"Resources\\bbox.png", D3DCOLOR_XRGB(255, 255, 0));
+	CTextures::GetInstance()->Add(-200, L"Resources\\squarebox.png", D3DCOLOR_XRGB(255, 255, 0));
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -1101,6 +1102,6 @@ void PlayScene::Render()
 	for (int i = 0; i < listBullets.size(); i++)
 		listBullets[i]->Render();
 	tail->Render();
-	//gameHUD->Render(player);
+	gameHUD->Draw();
 }
 
