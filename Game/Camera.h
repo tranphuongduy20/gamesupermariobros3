@@ -1,19 +1,15 @@
-//#pragma once
-//#include <Windows.h>
+//#include "Entity.h"
 //
-//class Camera
-//{
-//	static Camera* __instance;
-//	float camx, camy;
-//
-//	Camera();
-//	~Camera();
+//class Camera {
+//private:
+//	float x, y;
+//	Entity* player;
 //public:
-//
-//	static Camera* GetInstance();
-//
-//	void SetCamPos(float x, float y) { camx = x; camy = y; }
-//	float GetCamx() { return camx; }
-//	float GetCamy() { return camy; }
+//	void SetX(float x) { this->x = x; }
+//	void SetY(float y) { this->y = y; }
+//	void SetTarget(Entity* player) { this->player = player; }
+//	Entity* GetPlayer() { return this->player; }
+//	void Update();
+//	int GetScreenWidth() { return SCREEN_WIDTH; }
+//	int GetScreenHeight() { return SCREEN_HEIGHT; }
 //};
-//

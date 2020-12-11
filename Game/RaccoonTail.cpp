@@ -86,7 +86,7 @@ void RaccoonTail::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void RaccoonTail::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void RaccoonTail::Attack()

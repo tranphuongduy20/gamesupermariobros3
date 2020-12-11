@@ -87,6 +87,10 @@
 #define MARIO_ANI_FIRE_HOLD				46
 #define MARIO_ANI_FIRE_THROW			47
 #define MARIO_ANI_FIRE_FLY_BULLET		48
+#define MARIO_ANI_SMALL_IDLE_FRONT		49
+#define MARIO_ANI_BIG_IDLE_FRONT		50
+#define MARIO_ANI_RACCOON_IDLE_FRONT	51
+#define MARIO_ANI_FIRE_IDLE_FRONT		52
 
 
 
@@ -136,6 +140,7 @@ public:
 	DWORD untouchable_start;
 	bool isCheckCanFly;
 	float shootTime;
+	float dGround;
 
 	bool isJumping;
 	bool isJumpHandle;
@@ -146,6 +151,7 @@ public:
 	bool isRun;
 	bool isSpin;
 	bool isFly;
+	bool flyTrip;
 	bool isAttack;
 	bool isDie;
 	bool isKick;
@@ -183,6 +189,9 @@ public:
 	void SetDirection(int direct) { direction = direct; }
 	void Setvx(float vx) { vx = vx; }
 	void Setvy(float vy) { vy = vy; }
+
+	float Getvx() { return vx; }
+	float Getvy() { return vy; }
 	void SetPressS(bool press) { isPressJump = press; }
 	void SetPressDown(bool pres) { isPressCrouch = pres; }
 	void ResetBIG();

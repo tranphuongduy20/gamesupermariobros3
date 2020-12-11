@@ -19,6 +19,11 @@
 #define OBJECT_TYPE_BROKEN_BRICK	13
 #define OBJECT_TYPE_KOOPA_GREEN		14
 #define OBJECT_TYPE_BRICKSTAND	15
+#define CAMERA_HEIGHT_1 245
+#define CAMERA_HEIGHT_2 184
+#define CAMERA_SPEED 0.5f
+#define GROUND_HEIGHT 520
+
 
 PlayScene::PlayScene() : Scene()
 {
@@ -55,36 +60,6 @@ void PlayScene::LoadBaseObjects()
 		tail = new RaccoonTail();
 		DebugOut(L"[INFO] tail CREATED! \n");
 	}
-	/*if (gameHUD == NULL)
-	{
-		gameHUD = new HUD(player->GetHealth(), player->GetgunDam());
-		DebugOut(L"[INFO] HUD CREATED! %d \n", player->GetHealth());
-	}
-	gameHUD = new HUD(player->GetHealth(), player->GetgunDam());
-	
-	if (bullet3 == NULL)
-	{
-		bullet3 = new MainJasonBullet();
-		listBullets.push_back(bullet3);
-		DebugOut(L"[INFO] Bullet3 CREATED! \n");
-	}
-	if (supBullet == NULL)
-	{
-		supBullet = new ElectricBullet();
-		DebugOut(L"[INFO] supBullet CREATED! \n");
-	}
-	if (powerUp == NULL)
-	{
-		powerUp = new PowerUp(100,150);
-		listItems.push_back(powerUp);
-		DebugOut(L"[INFO] powerUp CREATED! \n");
-	}
-	if (gunUp == NULL)
-	{
-		gunUp = new GunUp(200, 150);
-		listItems.push_back(gunUp);
-		DebugOut(L"[INFO] gunUp CREATED! \n");
-	}*/
 }
 
 void PlayScene::ChooseMap(int whatMap)
@@ -98,44 +73,9 @@ void PlayScene::ChooseMap(int whatMap)
 
 void PlayScene::Update(DWORD dt)
 {
-#pragma region Camera
 	Game* game = Game::GetInstance();
 	game->TimerTick(dt);
 
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
-	/*if (player->Getx() + SCREEN_WIDTH / 2  >= mapWidth)
-	{
-		cx -= mapWidth - SCREEN_WIDTH / 2;
-	}
-	else
-	{
-		if (player->Getx() < SCREEN_WIDTH / 2)
-			cx = 0;
-		else
-			cx -= SCREEN_WIDTH / 2;
-	}*/
-	if (player->Gety() < ((SCREEN_HEIGHT / 4) - BONUS_CAM/2))
-		cy = 0;
-	else if (player->Gety() <= (((float)mapHeight / 2) - BONUS_CAM))
-		cy -= SCREEN_HEIGHT / 5;
-	else if (player->Gety() > (((float)mapHeight / 2) - BONUS_CAM))
-		cy = BOT_CAM;
-
-	if (cx < 0)
-	{
-		cx = 0;
-	}
-	else if (cx + SCREEN_WIDTH >= tilemap->GetWidthTileMap())
-	{
-		cx = tilemap->GetWidthTileMap() - SCREEN_WIDTH;
-	}
-
-	game->SetCamPos(cx, cy);
-#pragma endregion
 	if (listItems.size() > 0)
 		PlayerCollideItem();
 	PlayerGotGate();
@@ -177,6 +117,46 @@ void PlayScene::Update(DWORD dt)
 		listitems[i]->Update(dt, &coObjects);
 	tail->Update(dt, &fullObjects, player->x, player->y);
 #pragma endregion
+
+#pragma region Camera
+
+	if (!player) return;
+
+	float marioBox = player->level == MARIO_LEVEL_SMALL ? MARIO_SMALL_BBOX_HEIGHT : MARIO_BIG_BBOX_HEIGHT;
+
+	float cx, cy;
+	player->GetPosition(cx, cy);
+	cx -= SCREEN_WIDTH / 2;
+	
+	if ((player->flyTrip && player->level == MARIO_LEVEL_RACCOON) || player->Gety() + marioBox / 2 > player->dGround) {
+		cy = (cy + marioBox) - (float)SCREEN_HEIGHT * 0.6;
+	}
+	else {
+		cy = player->dGround + marioBox / 2 - (float)SCREEN_HEIGHT * 0.6;
+	}
+
+	BoundaryConstraint(cx, cy);
+	
+	game->SetCamPos(cx, cy);
+#pragma endregion
+}
+
+void PlayScene::BoundaryConstraint(float &x, float &y) {
+	if (x < 0)
+	{
+		x = 0;
+	}
+	else if (x + SCREEN_WIDTH >= tilemap->GetWidthTileMap())
+	{
+		x = tilemap->GetWidthTileMap() - SCREEN_WIDTH;
+	}
+
+	if (y < 0) {
+		y = 0;
+	}
+	else if (y + SCREEN_HEIGHT > GROUND_HEIGHT) {
+		y = GROUND_HEIGHT - SCREEN_HEIGHT;
+	}
 
 }
 
@@ -484,6 +464,7 @@ void PlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		else
 			bullet1->SetBBARGB(0);
 
+		if (bullet2->GetBBARGB() == 0)
 		if (bullet2->GetBBARGB() == 0)
 			bullet2->SetBBARGB(200);
 		else

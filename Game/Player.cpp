@@ -24,7 +24,9 @@ Player::Player(float x, float y) : Entity()
 	start_x = x;
 	start_y = y;
 	backup_JumpY = 0;
+	dGround = 0;
 	isFly = false;
+	flyTrip = false;
 	isCheckCanFly = true;
 	this->x = x;
 	this->y = y;
@@ -120,6 +122,7 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
+		float w = level == MARIO_LEVEL_SMALL ? MARIO_SMALL_BBOX_HEIGHT / 2 : MARIO_BIG_BBOX_HEIGHT / 2;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
@@ -143,6 +146,10 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						isFly = false;
 						isCheckCanFly = true;
 						vy = 0;
+						if ((flyTrip && level == MARIO_LEVEL_RACCOON) || y > dGround) {
+							dGround = y + w;
+						}
+						flyTrip = false;
 					}
 					else
 						y += dy;
@@ -166,6 +173,10 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 						isFly = false;
 						isCheckCanFly = true;
 						vy = 0;
+						if ((flyTrip && level == MARIO_LEVEL_RACCOON) || y > dGround) {
+							dGround = y + w;
+						}
+						flyTrip = false;
 					}
 					else
 						y += dy;
@@ -182,6 +193,10 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 					{
 						isGround = true;
 						isJumping = false;
+						if ((flyTrip && level == MARIO_LEVEL_RACCOON) || y > dGround) {
+							dGround = y + w;
+						}
+						flyTrip = false;
 					}
 				}
 				if (e->ny > 0)
@@ -200,6 +215,10 @@ void Player::Update(DWORD dt, vector<LPGAMEENTITY>* coObjects)
 					{
 						isGround = true;
 						isJumping = false;
+						if ((flyTrip && level == MARIO_LEVEL_RACCOON) || y > dGround) {
+							dGround = y + w;
+						}
+						flyTrip = false;
 					}
 				}
 			}
@@ -865,6 +884,7 @@ void Player::SetState(int state)
 			{
 				isCrouch = false;
 				isFly = true;
+				flyTrip = true;
 				vy = -MARIO_VY_FLY;
 			}
 			else
@@ -955,6 +975,7 @@ void Player::ResetBIG()
 	SetState(MARIO_STATE_IDLE);
 	SetLevel(MARIO_LEVEL_BIG);
 	SetPosition(start_x, start_y);
+	dGround = 0;
 	SetSpeed(0, 0);
 	nx = 1;
 }
@@ -965,6 +986,7 @@ void Player::ResetRACCOON()
 	SetLevel(MARIO_LEVEL_RACCOON);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+	dGround = 0;
 	nx = 1;
 }
 
@@ -974,6 +996,7 @@ void Player::ResetFIRE()
 	SetLevel(MARIO_LEVEL_FIRE);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);
+	dGround = 0;
 	nx = 1;
 }
 

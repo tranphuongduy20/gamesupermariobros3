@@ -96,6 +96,7 @@ public:
 	void PlayerGotGate();
 	void PlayerTouchItem();
 	void PlayerCollideItem();
+	void BoundaryConstraint(float &x, float &y);
 	void PlayerTailAttackEnemy();
 	virtual void LoadSceneObjects();
 	virtual void Update(DWORD dt);

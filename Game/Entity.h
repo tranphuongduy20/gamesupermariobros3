@@ -96,6 +96,8 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	float Getx() { return x; }
 	float Gety() { return y; }
+	float Getdx() { return this->dx; }
+	float Getdy() { return this->dy; }
 	int GetState() { return this->state; }
 	int GetHealth() { return health; }
 	void SetHealth(int value) { health = value; }
